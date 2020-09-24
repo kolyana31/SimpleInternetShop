@@ -1,0 +1,13 @@
+{
+    "name": "coachworld",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "nodemon app.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "is-empty": "^1.2.0",
+        "mysql2": "^2.2.5"
+    }
+}

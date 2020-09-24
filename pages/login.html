@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="./../css/login.css">
+    <link rel="stylesheet" href="./../css/nav.css">
+    <title>CoachWorld</title>
+</head>
+<body>
+    <nav class="row navbar navbar-expand-lg navbar-dark  bg-dark px-5">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#NavBarExpander" aria-controls="NavBarExpander" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="./img/coach-logo.png" width="40" height="50"  alt="logo" loading="lazy">
+                <span class="navbar-text">
+                    CoachWord
+                </span>
+            </a>
+                <!--Елементы навигации и форма поиска-->
+            <div class="collapse navbar-collapse justify-content-center" id="NavBarExpander">
+                <ul class="navbar-nav  nav-pills  w-100 text-center" >
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">HomePage</a>
+                    </li>
+                    <li class="nav-item mr-lg-auto">
+                        <a class="nav-link" href="/catalog">Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/login">Login</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="form-container">
+        <form name="login-form">
+            <label for="logfield">ENTER YOUR LOGIN</label>
+            <input name ="logfield" type="text"  required  placeholder="LOGIN">
+            <label for="passfield">ENTER YOUR PASSWORD</label>
+            <input name ="passfield" type="password"  required  placeholder="PASSWORD"  id="passwordfield">
+            <hr>
+            <label>LOGIN OR REGISTER</label>
+            <hr>
+            <input type="submit" value="LOGIN" id="submit">
+            <input type="button" value="REGISTER" id="go-to-reg">
+            <input type="button" value="FORGOT PASS" id="pass-renew-form">
+        </form>
+        <form name="register-form" hidden>
+            <label for="FIOfield">ENTER YOUR FIO</label>
+            <input name ="FIOfield" type="text"  placeholder="Name and Sur Name">
+            <label for="regfield">ENTER YOUR LOGIN</label>
+            <input name ="regfield" type="text" required placeholder="LOGIN">
+            <label for="passfield">ENTER YOUR PASSWORD</label>
+            <input name ="passfield" type="password" required placeholder="PASSWORD" id="passwordfield" >
+            <label for="Emailfield">ENTER YOUR EMAIL</label>
+            <input name ="Emailfield"  type="email" required placeholder="example@gmail.com" >
+            <label for="Phonefield">ENTER YOUR NUMBER</label>
+            <input name ="Phonefield" type="text"  required  placeholder="Phonefield">
+            <div class="SellerBlock">
+                <input class="customcheck" type="checkbox" name="seller" id="seller">
+                <label for="seller">WANT TO SELL</label>
+            </div>
+            <div class="organization" id="OrganizationField">
+                <label for="orgfield">ENTER ORGANIZATION</label>
+                <input name ="orgfield" type="text" placeholder="Organization">
+            </div>
+            <hr>
+            <label>REGISTER</label>
+            <hr>
+            <input type="submit" value="REGISTER" id="reg-submit">
+            <input type="button" value="Back to Login" id="back-to-log">
+        </form>
+        <form name="pass-renew-form" hidden>
+            <label for="renew-pass">ENTER YOUR EMAIL</label>
+            <input name ="renew-pass" type="text"  required  placeholder="EMAIL">
+            <hr>
+            <input type="submit" value="FORGOT PASS" id="renew-pass">
+            <input type="button" value="RETURN TO LOGIN" id="return-log">
+        </form>
+    </div>
+    <script src="./js/login.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>

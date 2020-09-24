@@ -1,0 +1,161 @@
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background-image:
+        linear-gradient(135deg, rgba(192, 192, 192, 0.8) 25%, transparent 25%),
+        linear-gradient(225deg,  rgba(192, 192, 192, 0.8) 25%, transparent 25%),
+        linear-gradient(45deg,  rgba(192, 192, 192, 0.8) 25%, transparent 25%),
+        linear-gradient(315deg,  rgba(192, 192, 192, 0.8) 25%, transparent 25%);
+    background-position:
+        25px 0,
+        25px 0,
+        0 0,
+        0 0;
+    background-size: 50px 50px;
+    background-repeat: repeat;
+    background-color: white;
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+hr{
+    width: 95%;
+    background-color: #d4d0c8;
+}
+
+/*==================NAV==================*/
+
+
+/*============form-container=============*/
+
+.form-container{
+    width: 300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 10px solid #0275d8;
+    border-radius: 5%;
+    margin: auto;
+    box-shadow: 0px 0px 10px black;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    height: 100%;
+}
+
+form *{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+form label{
+    color: #d4d0c8;
+}
+
+::placeholder{
+    text-align: center;
+    color: #eeeeed;
+}
+
+form input:not([type="checkbox"]), .organization input{
+    width: 95%;
+    border: 2px solid #d4d0c8;
+    border-radius: 5px;
+    background: transparent;
+    color: #eeeeed;
+    padding: 3% 0%;
+    box-shadow: 1px 1px 3px black;
+}
+
+form input[type="submit"]:hover,input[type="button"]:hover{
+    cursor: pointer;
+    border-color: rgb(48, 119, 226);
+    color: rgb(48, 119, 226);
+    border-radius: 0px;
+    border-left-color:  rgba(134, 86, 86, 0);
+    border-right-color:  rgba(134, 86, 86, 0);
+}
+
+form input:focus{
+    border-color: rgb(48, 119, 226);
+}
+
+.LoginNotFound{
+    color: red;
+}
+
+.LoginFound{
+    color: greenyellow;
+}
+
+.customcheck{
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.SellerBlock{
+    position: relative;
+}
+
+.customcheck+label{
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+.customcheck+label[for="seller"]::before{
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #adb5bd;
+    border-radius: 0.25em;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("./../img/confirm.svg");
+    background-size: 0%;
+    transition: 500ms ease-in-out;
+    -webkit-transition: 500ms ease-in-out;
+}
+
+.customcheck:checked+label::before{
+    background-color: #b3d7ff;
+    border-color: #b3d7ff;
+    background-size: 70%;
+}
+
+.organization{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-ok{
+    color: greenyellow;
+    text-shadow: 0px 0px 2px black ;
+    text-align: center;
+}
+
+.register-err{
+    color: tomato;
+    text-shadow: 0px 0px 2px black ;
+    text-align: center;
+}
+
+/*==================Media===================*/
+
