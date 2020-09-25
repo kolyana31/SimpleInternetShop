@@ -13,6 +13,23 @@ const urlencodedPaser = bodyParser.urlencoded({extended:false});
 
 const jsonParser = express.json();
 
+function FillList(Destination, objects) {
+    for (const itr of objects) {
+        Destination.push(itr);
+    }
+}
+
+function ProdReq(query,res) {
+    pool.query(query)
+    .then(([results,fields])=>{
+        res.json(JSON.stringify(results));
+    })
+    .catch(err=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+}
+
 const app = express();
 
 app.use(express.static(__dirname));
@@ -93,11 +110,6 @@ app.post("/register", jsonParser, (req,res)=>{
 });
 
 
-function FillList(Destination, objects) {
-    for (const itr of objects) {
-        Destination.push(itr);
-    }
-}
 
 app.get("/catalog", (req,res)=>{
     res.sendFile(__dirname + "/pages/catalog.html")
@@ -121,4 +133,47 @@ app.post("/catalog",jsonParser,async (req,res)=>{
         })
     }
 })
+
+
+app.post("/products/",jsonParser, function(req,res) {
+    let query = "select productid, name, price,avaragestar, photoPath from products";
+    if (!isEmpty(req.body)) {
+        query += ` where `;
+        for (const itr of req.body) {
+             if (itr.id && itr.param) {
+                query+= ` ${itr.param}=${itr.id} `
+             }
+             else{
+                query+=` Price >= ${itr.minPrice} and Price <= ${itr.maxPrice}`
+             }
+             if (!(itr == req.body[req.body.length-1])) {
+                 query += " and ";
+             } else {
+                 query += ";"
+             }
+        }
+    }
+    ProdReq(query,res);
+})
+app.post("/products/:namePar",jsonParser, function(req,res) {
+    let query = `select productid, name, price,avaragestar, photoPath from products where Name like "%${req.params["namePar"]}%"`;
+    if (!isEmpty(req.body)) {
+        query += ` and `;
+        for (const itr of req.body) {
+             if (itr.id && itr.param) {
+                query+= ` ${itr.param}=${itr.id} `
+             }
+             else{
+                query+=` Price >= ${itr.minPrice} and Price <= ${itr.maxPrice}`
+             }
+             if (!(itr == req.body[req.body.length-1])) {
+                 query += " and ";
+             } else {
+                 query += ";"
+             }
+        }
+    }
+    ProdReq(query,res);
+})
+
 app.listen(3000);
