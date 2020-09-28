@@ -128,6 +128,7 @@ function GetFilteredProds(name){
             for (const itr of Prods) {
                document.getElementById("prod-list").append(CreateProduct(itr.productid,itr.name,itr.price,itr.avaragestar,itr.photoPath));
             }
+            xhr[1].abort();
 
         } else {
             console.log('err', xhr[1].responseText)

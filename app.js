@@ -175,5 +175,9 @@ app.post("/products/:namePar",jsonParser, function(req,res) {
     }
     ProdReq(query,res);
 })
+app.post("/popularproducts", (req,res)=>{
+    let query = "select productid, name, price,avaragestar, photoPath from products order by  (avaragestar+boughtamount) desc limit 5;";
+    ProdReq(query, res);
+})
 
 app.listen(3000);
