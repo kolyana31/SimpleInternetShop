@@ -1,0 +1,44 @@
+.photo-des-block{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: auto;
+    justify-content: center;
+}
+
+.img-container{
+    width: auto;
+}
+
+.photo-block{
+    min-height: 300px;
+    max-height: 400px;
+}
+
+.photo-block img{
+    margin: auto;
+    max-width: 100%;
+}
+
+
+.text-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    flex-basis: 300px;
+}
+
+.text-primary{
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.full-desc div{
+    display: inline-block;
+    flex-basis: 350px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    align-self: flex-start;
+} 
+

@@ -175,6 +175,50 @@ app.post("/products/:namePar",jsonParser, function(req,res) {
     }
     ProdReq(query,res);
 })
+
+app.set("view engine", "hbs");
+
+app.get("/products/:id", (req,res)=>{
+    
+    if(req.params.id != "favicon.ico"){
+        pool.query(`
+        select products.Productid,products.Name,products.price, products.storageamount,products.BoughtAmount,products.description,products.photopath,
+               products.avaragestar,products.width,products.color,
+               manufacturs.Name as "ManuName", types.Type as "TypeName",
+               decoretypes.decoretype as "DecoreName", transformmecanism.Mechanism as "MechanisName",
+               materials.Material as "MaterName", users.Organization as "Seller"
+        from products 
+                left join manufacturs on products.manufactur=manufacturs.id   
+                left join types on products.types=types.id 
+                left join decoretypes on products.decoretypes=decoretypes.id 
+                left join transformmecanism on products.transformmecanism=transformmecanism.id 
+                left join materials on products.materials=materials.id 
+                left join users on products.SellerId=users.UserId
+                where ProductId = ${req.params.id};`)
+        .then(([results,fields])=>{
+            results = results[0];
+            console.log(results);
+            res.render(__dirname +"/pages/product.hbs", {
+                prodName: results.Name,
+                photo: "../"+results.photopath,
+                storageamount: results.storageamount,
+                Bought: results.BoughtAmount,
+                seller: results.Seller,
+                price: results.price,
+                prodId: results.Productid,
+                width: results.width,
+                color: results.color,
+                Manuf: results.ManuName,
+                Type: results.TypeName,
+                Decore: results.DecoreName,
+                Mechanism: results.MechanisName,
+                Material: results.MaterName,
+                description: results.description
+            });
+        })
+        .catch(err=>console.log(err));
+    }  
+})
 app.post("/popularproducts", (req,res)=>{
     let query = "select productid, name, price,avaragestar, photoPath from products order by  (avaragestar+boughtamount) desc limit 5;";
     ProdReq(query, res);

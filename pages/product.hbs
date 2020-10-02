@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="./../css/prod.css">
+    <link rel="stylesheet" href="./../css/nav.css">
+    <title>{{prodName}}</title>
+</head>
+<body>
+    <nav class="row navbar navbar-expand-lg navbar-dark  bg-dark px-5">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#NavBarExpander" aria-controls="NavBarExpander" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="./../img/coach-logo.png" width="40" height="50"  alt="logo" loading="lazy">
+                <span class="navbar-text">
+                    CoachWord
+                </span>
+            </a>
+                <!--Елементы навигации и форма поиска-->
+            <div class="collapse navbar-collapse justify-content-center" id="NavBarExpander">
+                <ul class="navbar-nav  nav-pills  w-100 text-center" >
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">HomePage</a>
+                    </li>
+                    <li class="nav-item mr-lg-auto">
+                        <a class="nav-link" href="/catalog">Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="bg-light">
+        <div class="container py-2">
+            <div class="p-lg-2 box-shadow photo-des-block">
+                <div class="img-container">
+                    <div class="photo-block d-flex">
+                        <img src="{{photo}}" alt="{{prodName}}">
+                    </div>
+                </div>
+                <div class="text-block p-2 m-2 box-shadow">
+                    <div><span class="text-primary">Name:</span><span class="text-decor"> {{prodName}}</span></div>
+                    <div><span class="text-primary">StorageAmount:</span><span class="text-decor"> {{storageamount}}</span></div>
+                    <div><span class="text-primary">Bought:</span><span class="text-decor"> {{Bought}}</span></div>
+                    <div><span class="text-primary">Seller:</span><span class="text-decor"> {{seller}}</span></div>
+                    <div><span class="text-primary">Price:</span><span class="text-decor"> {{price}}$</span></div>
+                </div>
+            </div>
+            <button id="add-{{prodId}}" type="button" class="w-100 btn btn-primary d-flex align-items-center justify-content-center my-2" data-toggle="button" aria-pressed="false">
+                Add to Cart
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.5 3.5a2.5 2.5 0 0 1 5 0V4h-5v-.5zm6 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                </svg>
+            </button>
+            <div class="box-shadow p-1">
+                <div class="full-desc d-flex w-100 flex-wrap justify-content-around align-items-center">
+                    <div><span class="text-primary">Name:</span><span class="text-decor"> {{prodName}}</span></div>
+                    <div><span class="text-primary">StorageAmount:</span><span class="text-decor"> {{storageamount}}</span></div>
+                    <div><span class="text-primary">Manufacture:</span><span class="text-decor"> {{Manuf}}</span></div>
+                    <div><span class="text-primary">Type:</span><span class="text-decor"> {{Type}}</span></div>
+                    <div><span class="text-primary">Decore:</span><span class="text-decor"> {{Decore}}</span></div>
+                    <div><span class="text-primary">Mechanism:</span><span class="text-decor"> {{Mechanism}}</span></div>
+                    <div><span class="text-primary">Material:</span><span class="text-decor"> {{Material}}</span></div>
+                    <div><span class="text-primary">Color:</span><span class="text-decor"> {{color}}</span></div>
+                </div>
+                <div class="description-block">
+                    <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Description
+                    </button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        {{description}}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

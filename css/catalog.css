@@ -66,7 +66,7 @@ body{
 }
 
 .sidebar-container{
-    flex-basis: 300px;
+    flex-basis: 200px;
 }
 
 .main-allignment{
@@ -96,8 +96,11 @@ body{
     font-weight: 800;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 767px) {
     .main-allignment{
        flex-wrap: wrap;
+    }
+    .sidebar-container{
+        flex-grow: 1;
     }
 }
