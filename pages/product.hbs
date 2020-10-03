@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./favicon.ico"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href="./../css/prod.css">
     <link rel="stylesheet" href="./../css/nav.css">
@@ -32,7 +32,7 @@
                         <a class="nav-link" href="/catalog">Catalog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a id="LoginLink" class="nav-link" href="/login">Login</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -66,7 +66,7 @@
             </button>
             <div class="box-shadow p-1">
                 <div class="full-desc d-flex w-100 flex-wrap justify-content-around align-items-center">
-                    <div><span class="text-primary">Name:</span><span class="text-decor"> {{prodName}}</span></div>
+                    <div><span class="text-primary" id="element-id" DbId="{{prodId}}">Name:</span><span class="text-decor"> {{prodName}}</span></div>
                     <div><span class="text-primary">StorageAmount:</span><span class="text-decor"> {{storageamount}}</span></div>
                     <div><span class="text-primary">Manufacture:</span><span class="text-decor"> {{Manuf}}</span></div>
                     <div><span class="text-primary">Type:</span><span class="text-decor"> {{Type}}</span></div>
@@ -76,21 +76,73 @@
                     <div><span class="text-primary">Color:</span><span class="text-decor"> {{color}}</span></div>
                 </div>
                 <div class="description-block">
-                    <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-primary w-100 my-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Description
                     </button>
-                    </p>
-                    <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        {{description}}
-                    </div>
+                    
+                    <div class="collapse mb-2" id="collapseExample">
+                        <div class="card card-body">
+                            {{description}}
+                        </div>
                     </div>
                 </div>
+                <button class="btn btn-primary w-100 my-2" type="button" data-toggle="collapse" data-target="#ComentCollapse" aria-expanded="false" aria-controls="ComentCollapse">
+                        Comments
+                </button>
+                    
+                    <div class="collapse mb-2" id="ComentCollapse">
+                        <div id="commetsBlock" class="comment-block d-flex  flex-column box-shadow p-2 align-items-center">
+                            <div id="AddComent" class="add-coment w-100">
+                                <span class=" d-block text-primary text-center text-decor">Leave Us opinion about product</span>
+                                <form id="AddCommentForm" action="/addcoment" method="POST"> 
+                                    <div class="form-group">
+                                        <label for="ChosenRate">Set Rate</label>
+                                        <select class="form-control" id="ChosenRate">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" >
+                                        <label for="BadAboutProd">Good Things</label>
+                                        <textarea class="form-control" id="BadAboutProd" rows="3" maxlength="500" ></textarea>
+                                        <label for="GoodAboutProd">Bad Things</label>
+                                        <textarea class="form-control" id="GoodAboutProd" rows="3" maxlength="500"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="w-100 btn btn-primary  my-2">
+                                            Add Comment
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <span class="d-block text-primary text-center text-decor">Comments</span>
+                            
+                            <div class="comment w-100 p-2 d-flex  flex-column box-shadow my-2">
+                                <div><span class="text-primary">Name:</span><span class="text-decor"> Имя</span></div>
+                                <div><span class="text-primary">Rate:</span><span class="text-decor"> 3 </span></div>
+                                <span class="d-block text-primary text-decor">Good Things:</span>
+                                <div class="card card-body">
+                                    sss
+                                </div>
+                                <span class="d-block text-primary text-decor">Bad Things:</span>
+                                <div class="card card-body">
+                                    sss2
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
             </div>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="./../js/auth.js"></script>
+    <script src="./../js/prod.js"></script>
 </body>
 </html>

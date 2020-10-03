@@ -6,6 +6,7 @@ const { json }      = require("body-parser");
 const mysql         = require("mysql2")
 const DBconnect     = require("./database/localdb.json");
 const isEmpty       = require("is-empty");
+const crypto           = require("crypto-js");
 
 const pool = mysql.createPool(DBconnect).promise();
 
@@ -43,15 +44,16 @@ app.get("/login", (req,res)=>{
 })
 app.post("/login", jsonParser, (req,res)=>{
     data = [req.body.Login, req.body.PASS];
-    pool.query("Select userid, login, pass, role from users where login = ? and pass = ?",
+    pool.query("Select userid, login, pass, role, UserHash from users where login = ? and pass = ?",
                 data)
-                .then(([err,results])=>{
+                .then(([results,fields])=>{
                     if (!isEmpty(results)) {
                         res.json({
                             "status": "Found",
-                            "Id": results.userid,
-                            "Login": results.Login, 
-                            "role": results.role
+                            "Id": results[0].userid,
+                            "Login": results[0].login, 
+                            "role": results[0].role,
+                            "Hash": results[0].UserHash
                         });
                     }
                     else{
@@ -64,9 +66,28 @@ app.post("/login", jsonParser, (req,res)=>{
                     console.log(err)
                 });
 });
-app.post("/register", jsonParser, (req,res)=>{
+app.post("/login/:Hash", (req,res)=>{
+    pool.query("Select userid, UserFIO, login, pass, role from users where UserHash = ?",req.params.Hash)
+                .then(([results,fields])=>{
+                    res.json({
+                        "status": "Found",
+                        "Id": results[0].userid,
+                        "Login": results[0].login, 
+                        "role": results[0].role,
+                        "FIO": results[0].UserFIO,
+                        "Hash": results[0].UserHash
+                    });
+                })
+                .catch(err=>{
+                    console.log(err);
+                    res.end();
+                })
+})
+app.post("/register", jsonParser,async (req,res)=>{
     let regin = req.body;
     let role;
+    let Hash = await crypto.HmacMD5(regin.userEmail+regin.userFIO,regin.userLogin).toString();
+    
     if (regin.isSeller) {
         role = "seller";
     }
@@ -80,15 +101,17 @@ app.post("/register", jsonParser, (req,res)=>{
         Pass,
         Phone,
         Organization,
-        Role) values (
+        Role,
+        UserHash) values (
             "${regin.userEmail}",
             "${regin.userFIO}",
             "${regin.userLogin}",
             "${regin.userPass}",
             "${regin.userPhone}",
             "${regin.Organisation}",
-            "${role}"
-        )`).then(()=>{
+            "${role}",
+            "${Hash}"
+        );`).then(()=>{
             res.json({
                 "status": "added",
                 "added": true,
@@ -104,7 +127,7 @@ app.post("/register", jsonParser, (req,res)=>{
                     })
                     return;
                 }
-                throw err;
+                console.log(err);
             };
         });
 });
@@ -179,15 +202,13 @@ app.post("/products/:namePar",jsonParser, function(req,res) {
 app.set("view engine", "hbs");
 
 app.get("/products/:id", (req,res)=>{
-    
     if(req.params.id != "favicon.ico"){
         pool.query(`
         select products.Productid,products.Name,products.price, products.storageamount,products.BoughtAmount,products.description,products.photopath,
                products.avaragestar,products.width,products.color,
                manufacturs.Name as "ManuName", types.Type as "TypeName",
                decoretypes.decoretype as "DecoreName", transformmecanism.Mechanism as "MechanisName",
-               materials.Material as "MaterName", users.Organization as "Seller"
-        from products 
+               materials.Material as "MaterName", users.Organization as "Seller"        from products 
                 left join manufacturs on products.manufactur=manufacturs.id   
                 left join types on products.types=types.id 
                 left join decoretypes on products.decoretypes=decoretypes.id 
@@ -197,7 +218,6 @@ app.get("/products/:id", (req,res)=>{
                 where ProductId = ${req.params.id};`)
         .then(([results,fields])=>{
             results = results[0];
-            console.log(results);
             res.render(__dirname +"/pages/product.hbs", {
                 prodName: results.Name,
                 photo: "../"+results.photopath,
@@ -219,9 +239,24 @@ app.get("/products/:id", (req,res)=>{
         .catch(err=>console.log(err));
     }  
 })
+app.post("/getcoments/:ProdId",(req,res)=>{
+    pool.query(`SELECT coments.Stars,coments.Badpart,coments.GoodPart,Users.UserFIO as "FIO" 
+                FROM coments
+                left join users on coments.UserLeftId=users.UserId where coments.ProductId =${req.params.ProdId};`)
+                .then(([results,fields])=>{
+                    res.json(results);
+                })
+                .catch(err=>{
+                    console.log(err);
+                    res.end();
+                })
+})
 app.post("/popularproducts", (req,res)=>{
     let query = "select productid, name, price,avaragestar, photoPath from products order by  (avaragestar+boughtamount) desc limit 5;";
     ProdReq(query, res);
 })
 
+app.get("/user/:Hash", (req,res)=>{
+
+})
 app.listen(3000);

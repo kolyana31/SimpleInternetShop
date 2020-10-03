@@ -17,19 +17,24 @@ document.getElementById("submit").onclick = (event)=>{
         request.addEventListener("load", ()=>{
             let receivedUser = JSON.parse(request.response);
             let span = document.createElement("span");
-    
             if (receivedUser.status) {
                 span.innerText = "Found";
                 span.className = "LoginFound";
+                sessionStorage.setItem('user', receivedUser.Hash);
+                span.onload = 
+                setTimeout(() => {
+                    span.remove();
+                    location.href= "/";
+                }, 2000);
             }
             else{
                 span.innerText = "Login/Password Is not correct";
                 span.className = "LoginNotFound";
-            }
-            span.onload = 
+                span.onload = 
                 setTimeout(() => {
                     span.remove();
                 }, 2000);
+            }
             form.elements["passfield"].after(span);
         });
         request.send(user);    
