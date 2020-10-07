@@ -50,3 +50,9 @@ textarea{
 .comment{
     background: rgba(187, 184, 184, 0.4);
 }
+
+.remove-block{
+    -webkit-transition: ease-in-out 1s;
+    transition: ease-in-out 1s;
+    transform: scaleY(0);
+}

@@ -29,7 +29,7 @@ main{
         0 0;
     background-size: 50px 50px;
     background-repeat: repeat;
-    background-color: #333333;
+    background-color: white;
 }
 
 body::-webkit-scrollbar-track {

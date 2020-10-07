@@ -36,12 +36,17 @@ function CreateProduct(id,name,price,stars,photo){
             id = e.target.getAttribute("AddId");
         } 
         else{
-            id = (e.target.parentNode).parentNode.getAttribute("AddId");
+            if (!(e.target.parentNode).parentNode.getAttribute("AddId")) {
+                id = (e.target.parentNode).parentNode.getAttribute("AddId");
+            }
+            else{
+                id = ((e.target.parentNode).parentNode).parentNode.getAttribute("AddId")
+            }
         }
         if (localStorage.getItem("busket")) {
             let recop = []
             recop =  JSON.parse(localStorage.getItem("busket"));
-            recop.push(id);
+            recop.push(id);            
             localStorage.setItem("busket",JSON.stringify(recop));
         }
         else{

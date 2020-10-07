@@ -1,0 +1,32 @@
+.store-item{
+    max-width:  100px;
+    max-height: 100px;
+    margin: auto;
+}
+
+.photo-block{
+    min-width:  100px;
+    min-height: 100px;
+    display: flex;
+}
+
+.desc-info *{
+    
+    margin-right: 20%;
+}
+
+.form-group input{
+    background-color: transparent;
+}
+
+.change-failed{
+    -webkit-transition: ease-in-out 1s;
+    transition: ease-in-out 1s;
+    background-color: rgba(255, 18, 18, 0.4);
+}
+
+.change-ok{
+    -webkit-transition: ease-in-out 1s;
+    transition: ease-in-out 1s;
+    background-color:  rgba(65, 255, 18, 0.4);
+}

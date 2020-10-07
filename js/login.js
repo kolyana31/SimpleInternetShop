@@ -24,7 +24,7 @@ document.getElementById("submit").onclick = (event)=>{
                 span.onload = 
                 setTimeout(() => {
                     span.remove();
-                    location.href= "/";
+                    history.back();
                 }, 2000);
             }
             else{
@@ -57,7 +57,7 @@ document.getElementById("reg-submit").onclick = (e)=>{
         Organisation = form.elements["orgfield"].value;
         
     if (userFIO.length > 5 && userFIO.length < 45  && userLogin.length > 4 && userLogin.length < 30 &&
-        passRegExp.test(userPass) && emailRegExp.test(userEmail)&&  !emailRegExp.test(userLogin)&&
+        passRegExp.test(userPass) && emailRegExp.test(userEmail)&&
         numberRegExp.test(userPhone)) {
         if (isSeller && (Organisation.length>50 && Organisation.length<5)) {
             alert("If u are a seller your organization name must be more than 5 symbols");

@@ -1,7 +1,7 @@
 const express       = require("express");
 const fs            = require("fs");
 const bodyParser    = require("body-parser");
-const { response }  = require("express");
+const { response, query }  = require("express");
 const { json }      = require("body-parser");
 const mysql         = require("mysql2")
 const DBconnect     = require("./database/localdb.json");
@@ -256,7 +256,94 @@ app.post("/popularproducts", (req,res)=>{
     ProdReq(query, res);
 })
 
-app.get("/user/:Hash", (req,res)=>{
+app.get("/user/", (req,res)=>{
+    res.sendFile(__dirname + "\\pages\\user.html");
+})
+app.post("/getuserinfo",jsonParser, (req,res)=>{
+    pool.query(`select UserFIO,EMAIL,Login,Pass,Phone,Role from users where UserHash = "${req.body.hash}"`)
+                .then(([results,fields])=>{
+                    res.send(results[0]);
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+})
+app.post("/getbascket",jsonParser,(req,res)=>{
+    if (!isEmpty(req.body)) {
+        let query = `select ProductId,Name,Price,AvarageStar, PhotoPath,users.organization as Organization from products 
+        left join users on products.SellerID=users.UserId where  `;
+        for (let i = 0; i < req.body.length; i++) {
+            if (req.body[i]) {
+                query +=` ProductID="${req.body[i]}" `
+                if (i<req.body.length-1) {
+                    query += " or ";
+                }
+            }
+        }
+        pool.query(query)
+            .then(([results,fields])=>{
+                res.json(results);
+            })
+            .catch(err=>{
+                console.log(query);
+                console.log(err);
+                res.end();
+            })
+    }
+    else{
+        res.end();
+    }
 
 })
+app.post("/changeinfo" , jsonParser,(req,res)=>{
+    if (!isEmpty(req.body)) {
+        let query = `update users 
+                set`;
+            for (const key in req.body) {
+                if (key != "hash" && !isEmpty(req.body[key])) {
+                    query += ` ${key} = "${req.body[key]}" ,`
+                }
+            }
+            query = query.substring(0, query.length - 1);
+            query += ` where UserHash = "${req.body.hash}"`;
+        pool.query(query)
+            .then(([results,fields])=>{
+                res.json({
+                    "status":"Changed",
+                    "added": true,
+                    "err": null
+                })
+            })
+            .catch(err=>{
+                if (err) { 
+                    if (err.errno == 1062) {
+                        res.json({
+                            "status":"Found",
+                            "added": false,
+                            "err": 1062
+                        })
+                        return;
+                    }
+                    console.log(err);
+                };
+            })
+    }
+})
+app.post("/addcoment", jsonParser, (req,res)=>{
+    let query = `INSERT INTO coments (Stars, BadPart, GoodPart, UserLeftID, ProductId)
+    VALUES ("${req.body.rate}","${req.body.bad}","${req.body.good}",(select userid from users where UserHash="${req.body.hash}"),"${req.body.prodId}");`
+    pool.query(query)
+                .then(([results,fields])=>{
+                    res.json({
+                        err: null,
+                        status: "added"
+                    })
+                })
+                .catch(err=>{
+                    console.log(err);
+                    console.log(query);
+                })
+    console.log(req.body);
+})
+
 app.listen(3000);
