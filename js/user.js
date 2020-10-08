@@ -29,6 +29,34 @@ function createProduct(prodId,name,rate,Organization,price,photo){
     return elem;
 }
 
+function ReturnOption(key,id,Name) {
+    let div = document.createElement("option");
+    div.setAttribute("key",key);
+    div.setAttribute("dbID", id);
+    div.id=`${key}-${id}`;
+    div.innerText = Name;
+    return div;
+}
+
+function GetFilters() {
+    let Result;
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "/catalog", true);
+    xhr.send(); 
+    xhr.onload = function(){
+        if (xhr.status == 200) {
+            Result = JSON.parse(JSON.parse(xhr.responseText));
+            for (const key in Result) {
+                for (const itr of Result[key]) {
+                    document.getElementById(`${key}-Select`).append(ReturnOption(key,itr.id,itr[Object.keys(itr)[Object.keys(itr).length-1]]));
+                }
+            }
+        } else {
+            console.log('err', xhr.responseText)
+        }
+    }
+}
+
 document.addEventListener("DOMContentLoaded", ()=>{
     if (sessionStorage.getItem("user")) {
         let GetUser = new XMLHttpRequest();
@@ -42,6 +70,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             document.getElementById("Login").setAttribute("placeHolder",res.Login);
             document.getElementById("Pass").setAttribute("placeHolder",res.Pass);
             document.getElementById("Phone").setAttribute("placeHolder",res.Phone);
+            if (res.Role != "seller") {
+                document.getElementById("AddProdBlock").remove();
+            }
         }
         GetUser.send(JSON.stringify({hash: sessionStorage.getItem("user")}));
 
@@ -50,6 +81,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
         GetBasket.setRequestHeader("Content-Type", "application/json");
         GetBasket.onload = ()=>{
             let res = JSON.parse(GetBasket.response);
+            if (res.err == 2020) {
+                return;
+            }
             let loc = JSON.parse(localStorage.getItem("busket"));
             for (const prod of loc){
                 for (const itr of res) {
@@ -73,6 +107,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     else{
         document.location.href = "/";
     }
+    GetFilters();
 })
 
 document.getElementById("SubmitAccountChanges").addEventListener("click",(ev)=>{
@@ -150,3 +185,11 @@ document.getElementById("SubmitAccountChanges").addEventListener("click",(ev)=>{
 
 })
 
+document.getElementById("addProduct").addEventListener("click",(ev)=>{
+    ev.preventDefault();
+    let formdata = new FormData(document.forms["formAdder"]);
+    console.log(formdata);
+    // let IMGAndJsonLoader = new XMLHttpRequest();
+    // IMGAndJsonLoader.open("POST","/addProd", true);
+    // IMGAndJsonLoader.setRequestHeader('Content-Type', 'multipart/form-data');
+})

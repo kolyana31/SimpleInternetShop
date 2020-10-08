@@ -56,3 +56,8 @@ textarea{
     transition: ease-in-out 1s;
     transform: scaleY(0);
 }
+
+#descriptionBlock{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
+}

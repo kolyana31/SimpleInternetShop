@@ -291,7 +291,7 @@ app.post("/getbascket",jsonParser,(req,res)=>{
             })
     }
     else{
-        res.end();
+        res.json({err: 2020, status: "bodyEmpty"});
     }
 
 })
@@ -346,4 +346,7 @@ app.post("/addcoment", jsonParser, (req,res)=>{
     console.log(req.body);
 })
 
+app.post("/addProd",(req,res)=>{
+    
+})
 app.listen(3000);

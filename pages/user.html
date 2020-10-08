@@ -82,6 +82,9 @@
                             <button type="submit" id="SubmitAccountChanges" class="btn btn-primary w-100">Submit</button>
                           </form>
                     </div>
+                    <div class="card-body" id="adress-place">
+  
+                    </div>
                   </div>
                 </div>
 
@@ -97,7 +100,7 @@
          
                   </div>
                 </div>
-                <div class="card">
+                <div class="card" id="AddProdBlock">
                   <div class="card-header" id="headingThree">
                     <h2 class="mb-0">
                       <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -107,7 +110,60 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        
+                      <form id="formAdder">
+                        <div class="form-group">
+                          <label for="productPhoto" class="text-primary">Choose Photo</label>
+                          <input type="file" class="form-control-file" accept="image/jpeg,image/png,image/gif" id="productPhoto">
+                        </div>
+                      
+                      <div class="autogrid">
+                        <div class="form-group mx-sm-3 mb-2">
+                          <input type="text" class="form-control" id="NameAdd" placeholder="Name">
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <input type="text" class="form-control" id="PriceAdd" placeholder="Price">
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <input type="text" class="form-control" id="StorageAmountAdd" placeholder="StorageAmount">
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <input type="text" class="form-control" id="DescriptionAdd" placeholder="Description">
+                        </div>
+                      </div>
+                      <div class="autogrid" id="selection-block">
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="manufacturs-Select">Manufactur</label>
+                          <select name="manufacturs-Select" class="form-control" id="manufacturs-Select">
+                            
+                          </select>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="types-Select">Types</label>
+                          <select name="types-Select" class="form-control" id="types-Select">
+                            
+                          </select>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="decoretypes-Select">Decore</label>
+                          <select name="decoretypes-Select" class="form-control" id="decoretypes-Select">
+                            
+                          </select>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="transformmecanism-Select">TransformMechanism</label>
+                          <select name="transformmecanism-Select" class="form-control" id="transformmecanism-Select">
+                            
+                          </select>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="materials-Select">Materials</label>
+                          <select name="materials-Select" class="form-control" id="materials-Select">
+                            
+                          </select>
+                        </div>
+                      </div>
+                      </form>
+                      <button class="btn btn-primary w-100"type="submit" id="addProduct">Add Procuct</button>
                     </div>
                   </div>
                 </div>

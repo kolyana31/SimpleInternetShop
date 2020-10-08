@@ -30,3 +30,8 @@
     transition: ease-in-out 1s;
     background-color:  rgba(65, 255, 18, 0.4);
 }
+
+.autogrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
+}
